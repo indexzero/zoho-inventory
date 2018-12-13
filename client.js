@@ -46,7 +46,7 @@ module.exports = class Client {
   }
 
   async delete(id) {
-    return await this.fetch(`${id}/` {
+    return await this.fetch(`${id}/`, {
       method: 'DELETE'
     });
   }
