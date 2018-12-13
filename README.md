@@ -15,7 +15,7 @@ Fetch-based API client for the Zoho Inventory API
 
 | Resource       | Action        | |
 | -------------- | ------------- | -- |
-| Item           | List          | ❌ |
+| Item           | List          | ✅ |
 | Item           | Create        | ❌ |
 | Item           | Read          | ❌ |
 | Item           | Update        | ❌ |
