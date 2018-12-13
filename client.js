@@ -5,7 +5,7 @@ module.exports = class Client {
   constructor({ resource, organization, token, origin }) {
     this.resource = resource;
     this.origin = origin || 'https://inventory.zoho.com/api/v1';
-    this.url = `${origin.replace(/\/$/, '')}/${resource}/`;
+    this.url = `${this.origin.replace(/\/$/, '')}/${resource}/`;
 
     this.headers = { 'Content-Type': 'application/json' };
     this.query = {
@@ -14,7 +14,7 @@ module.exports = class Client {
     };
   }
 
-  async fetch(path, { method = 'GET', query, headers, body }) {
+  async fetch(path, { method = 'GET', query, headers, body } = {}) {
     const qs = new URLSearchParams(Object.assign({}, query, this.query));
     const target = `${this.url}${path}?${qs.toString()}`;
 
@@ -24,11 +24,16 @@ module.exports = class Client {
       body: body
     });
 
-    return response;
+    return await response.json();
+
+  }
+
+  async list() {
+    return await this.fetch('');
   }
 
   async create(body) {
-    return await this.fetch('', {
+    await this.fetch('', {
       method: 'POST',
       body
     })

@@ -61,4 +61,4 @@ typings/
 .next
 
 # Ignore local settings
-.devlocal
+.devlocal.json
