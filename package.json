@@ -1,0 +1,26 @@
+{
+  "name": "zoho-inventory",
+  "version": "0.0.0",
+  "description": "Fetch-based API client for the Zoho Inventory API",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indexzero/zoho-inventory.git"
+  },
+  "keywords": [
+    "zoho",
+    "inventory"
+  ],
+  "author": "Charlie Robbins <charlie.robbins@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indexzero/zoho-inventory/issues"
+  },
+  "homepage": "https://github.com/indexzero/zoho-inventory#readme",
+  "dependencies": {
+    "cross-fetch": "^3.0.0"
+  }
+}
