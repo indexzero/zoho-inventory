@@ -8,7 +8,7 @@ Fetch-based API client for the Zoho Inventory API
 
 > Source: [Zoho Inventory API Docs]
 
-- [Items, Item Groups, Composite Items]
+- [Items, Custom Field, Organization, Composite Items]
 - [Resources not yet implemented]
 
 ### Items, Item Groups, Composite Items 
@@ -17,20 +17,23 @@ Fetch-based API client for the Zoho Inventory API
 | -------------- | -------------- | -- |
 | Item           | List           | ✅ |
 | Item           | Create         | ✅ |
-| Item           | Create (Image) | ❌ |
+| Item           | Create (Image) | ✅ |
 | Item           | Read           | ✅ |
 | Item           | Update         | ❌ |
 | Item           | Delete         | ✅ |
 | Item           | Delete Image   | ❌ |
 | Item           | Mark Active    | ❌ |
 | Item           | Mark Inactive  | ❌ |
-| Item Group     | List           | ❌ |
-| Item Group     | Create         | ❌ |
-| Item Group     | Read           | ❌ |
-| Item Group     | Update         | ❌ |
-| Item Group     | Delete         | ❌ |
-| Item Group     | Mark Active    | ❌ |
-| Item Group     | Mark Inactive  | ❌ |
+| Custom Field   | List           | ❌ |
+| Custom Field   | Create         | ❌ |
+| Custom Field   | Read           | ❌ |
+| Custom Field   | Update         | ❌ |
+| Custom Field   | Delete         | ❌ |
+| Organization   | List           | ❌ |
+| Organization   | Create         | ❌ |
+| Organization   | Read           | ❌ |
+| Organization   | Update         | ❌ |
+| Organization   | Delete         | ❌ |
 | Composite Item | List           | ❌ |
 | Composite Item | Create         | ❌ |
 | Composite Item | Read           | ❌ |
@@ -41,8 +44,8 @@ Fetch-based API client for the Zoho Inventory API
 
 ### Resources not yet implemented
 
-- Organizations, Contacts, Contact Persons, Users
-- Item Adjustments
+- Contacts, Contact Persons, Users
+- Item Group, Item Adjustments
 - Transfer Orders, Sales Orders, Invoices
 - Purchase Orders, Purchase Receives
 - Bills, Customer Payments

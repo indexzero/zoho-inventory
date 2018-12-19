@@ -24,7 +24,7 @@ describe('Items', function () {
     assume(items.delete).is.a('asyncFunction');
   });
 
-  describe('Items HTTP API', () => {
+  describe('/items (HTTP API)', () => {
     const active = [];
     let items;
 
