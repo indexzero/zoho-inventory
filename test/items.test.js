@@ -59,6 +59,24 @@ describe('Items', function () {
       active.push(item);
     });
 
+    it('GET /items/:id gets an item', async () => {
+      const [expected] = active;
+      const body = await items.get(expected.item_id);
+
+      assume(body.code).equals(0);
+      assume(body.message).is.a('string');
+
+      const { item } = body;
+      assume(item).is.an('object');
+      assume(item.name).equals(expected.name);
+      assume(item.unit).equals(expected.unit);
+      assume(item.rate).equals(expected.rate);
+      assume(item.sku).equals(expected.sku);
+      assume(item.purchase_rate).equals(expected.purchase_rate);
+      assume(item.item_type).equals(expected.item_type);
+      assume(item.description).equals(expected.description);
+    });
+
     it('DELETE /items/:id deletes an item', async () => {
       const expected = active.pop();
       const body = await items.delete(expected.item_id);
