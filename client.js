@@ -1,6 +1,7 @@
 const crossFetch = require('cross-fetch');
 const diagnostics = require('diagnostics');
 const { URLSearchParams } = require('url');
+const FormData = require('form-data');
 
 /**
  * Generic fetch-based HTTP client that assumes all of the
@@ -14,7 +15,7 @@ module.exports = class Client {
     this.url = `${this.origin.replace(/\/$/, '')}/${resource}/`;
     this.debug = diagnostics(`zoho:${this.resource}`);
 
-    this.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    this.headers = { 'content-type': 'application/x-www-form-urlencoded' };
     this.query = {
       organization_id: organization,
       authtoken: token
@@ -40,17 +41,38 @@ module.exports = class Client {
     const qs = new URLSearchParams(Object.assign({}, query, this.query));
     const target = `${this.url}${path}`;
 
-    this.debug(method, target, { query, body });
-
-    const response = await crossFetch(`${target}?${qs.toString()}`, {
+    const form = body && this.formEncode(body);
+    const details = {
       method,
-      headers: Object.assign({}, this.headers, headers),
-      body: body && `JSONString=${JSON.stringify(body)}`
-    });
+      headers: Object.assign({},
+        this.headers,
+        form && form.getHeaders() || {},
+        headers
+      ),
+      body: form
+    };
+
+    this.debug(method, target, { query, body, headers: details.headers });
+    const response = await crossFetch(`${target}?${qs.toString()}`, details);
 
     this.debug(response.status, response.statusText, { ok: response.ok });
-
     return await response.json();
+  }
+
+  /**
+   * Returns the properly form encoded value for the `body`
+   * contents provided.
+   *
+   * Overridden in derived clients to handle bespoke / inconsistent
+   * form parameters (such as "image" in /items).
+   *
+   * @param  {Object} body HTTP request body.
+   * @return {string} Simple `JSONString=` default expected by Zoho.
+   */
+  formEncode(body) {
+    const form = new FormData();
+    form.append('JSONString', JSON.stringify(body));
+    return form;
   }
 
   /**
