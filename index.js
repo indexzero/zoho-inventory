@@ -7,5 +7,5 @@ module.exports = function createClient(opts) {
 
   return {
     items: new Items(opts)
-  }
+  };
 };

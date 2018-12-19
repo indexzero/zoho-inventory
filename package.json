@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/indexzero/zoho-inventory#readme",
   "dependencies": {
-    "cross-fetch": "^3.0.0"
+    "cross-fetch": "^3.0.0",
+    "diagnostics": "^1.1.1",
+    "form-data": "^2.3.3"
   },
   "devDependencies": {
     "assume": "^2.1.0",
