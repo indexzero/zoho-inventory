@@ -19,16 +19,16 @@ Fetch-based API client for the Zoho Inventory API
 | Item           | Create         | ✅ |
 | Item           | Create (Image) | ✅ |
 | Item           | Read           | ✅ |
-| Item           | Update         | ❌ |
+| Item           | Update         | ⚠️ |
 | Item           | Delete         | ✅ |
 | Item           | Delete Image   | ❌ |
 | Item           | Mark Active    | ❌ |
 | Item           | Mark Inactive  | ❌ |
-| Custom Field   | List           | ❌ |
-| Custom Field   | Create         | ❌ |
-| Custom Field   | Read           | ❌ |
-| Custom Field   | Update         | ❌ |
-| Custom Field   | Delete         | ❌ |
+| Custom Field   | List           | ✅ |
+| Custom Field   | Create         | ✅ |
+| Custom Field   | Read           | ⚠️ |
+| Custom Field   | Update         | ⚠️ |
+| Custom Field   | Delete         | ✅ |
 | Organization   | List           | ❌ |
 | Organization   | Create         | ❌ |
 | Organization   | Read           | ❌ |
@@ -41,6 +41,12 @@ Fetch-based API client for the Zoho Inventory API
 | Composite Item | Delete         | ❌ |
 | Composite Item | Mark Active    | ❌ |
 | Composite Item | Mark Inactive  | ❌ |
+
+#### Legend
+
+- ✅: Implemented with E2E Test Coverage.
+- ⚠️: Implemented with **no test coverage.**
+- ❌: Not implemented yet.
 
 ### Resources not yet implemented
 

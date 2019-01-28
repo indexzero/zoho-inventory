@@ -9,10 +9,11 @@ const FormData = require('form-data');
  * @type {Client}
  */
 module.exports = class Client {
-  constructor({ resource, organization, token, origin }) {
+  constructor({ resource, path, organization, token, origin }) {
     this.resource = resource;
+    this.path = path || resource;
     this.origin = origin || 'https://inventory.zoho.com/api/v1';
-    this.url = `${this.origin.replace(/\/$/, '')}/${resource}/`;
+    this.url = `${this.origin.replace(/\/$/, '')}/${this.path}/`;
     this.debug = diagnostics(`zoho:${this.resource}`);
 
     this.headers = { 'content-type': 'application/x-www-form-urlencoded' };
@@ -82,8 +83,8 @@ module.exports = class Client {
    *
    * @return {Object} HTTP response body.
    */
-  async list() {
-    return await this.fetch('');
+  async list(options = {}) {
+    return await this.fetch('', options);
   }
 
   /**
