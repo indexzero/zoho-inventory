@@ -1,6 +1,6 @@
 {
   "name": "zoho-inventory",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Fetch-based API client for the Zoho Inventory API",
   "main": "index.js",
   "scripts": {
