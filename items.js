@@ -15,7 +15,7 @@ module.exports = class Items extends Client {
    * form parameters (such as "image" in /items).
    *
    * @param  {Object} body HTTP request body.
-   * @return {string} Simple `JSONString=` default expected by Zoho.
+   * @returns {string} Simple `JSONString=` default expected by Zoho.
    */
   formEncode(body) {
     if (!body.image) {
@@ -25,7 +25,7 @@ module.exports = class Items extends Client {
     const form = new FormData();
     form.append('image', fs.createReadStream(body.image));
     form.append('JSONString', JSON.stringify(
-      Object.assign({}, body, { image: undefined })
+      Object.assign({}, body, { image: undefined }) // eslint-disable-line no-undefined
     ));
 
     return form;

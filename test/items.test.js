@@ -1,7 +1,7 @@
 const path = require('path');
 const assume = require('assume');
 const Items = require('../items');
-const { loadSecrets } = require('./helpers');
+const { loadSecrets, assumeApiClient } = require('./helpers');
 
 const { token, organization } = loadSecrets();
 
@@ -14,14 +14,7 @@ describe('Items', function () {
 
   it('should construct', () => {
     const items = new Items({ token, organization });
-
-    assume(items).is.an('object');
-    assume(items.fetch).is.a('asyncFunction');
-    assume(items.list).is.a('asyncFunction');
-    assume(items.create).is.a('asyncFunction');
-    assume(items.get).is.a('asyncFunction');
-    assume(items.update).is.a('asyncFunction');
-    assume(items.delete).is.a('asyncFunction');
+    assumeApiClient(items);
   });
 
   describe('/items (HTTP API)', () => {

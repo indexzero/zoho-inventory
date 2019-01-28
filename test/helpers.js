@@ -1,3 +1,4 @@
+const assume = require('assume');
 
 function demandSecret(key, env) {
   throw new Error(`Missing required config: token. Either:
@@ -25,6 +26,17 @@ function loadSecrets() {
   return secrets;
 }
 
+function assumeApiClient(client) {
+  assume(client).is.an('object');
+  assume(client.fetch).is.a('asyncFunction');
+  assume(client.list).is.a('asyncFunction');
+  assume(client.create).is.a('asyncFunction');
+  assume(client.get).is.a('asyncFunction');
+  assume(client.update).is.a('asyncFunction');
+  assume(client.delete).is.a('asyncFunction');
+}
+
 module.exports = {
-  loadSecrets
+  loadSecrets,
+  assumeApiClient
 };

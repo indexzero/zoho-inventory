@@ -1,7 +1,7 @@
-const path = require('path');
+/* eslint camelcase: 0 */
 const assume = require('assume');
 const CustomFields = require('../custom-fields');
-const { loadSecrets } = require('./helpers');
+const { loadSecrets, assumeApiClient } = require('./helpers');
 
 const { token, organization } = loadSecrets();
 
@@ -14,14 +14,7 @@ describe('Custom Fields', function () {
 
   it('should construct', () => {
     const customFields = new CustomFields({ token, organization });
-
-    assume(customFields).is.an('object');
-    assume(customFields.fetch).is.a('asyncFunction');
-    assume(customFields.list).is.a('asyncFunction');
-    assume(customFields.create).is.a('asyncFunction');
-    assume(customFields.get).is.a('asyncFunction');
-    assume(customFields.update).is.a('asyncFunction');
-    assume(customFields.delete).is.a('asyncFunction');
+    assumeApiClient(customFields);
   });
 
   describe('/settings/preferences/customfields (HTTP API)', () => {

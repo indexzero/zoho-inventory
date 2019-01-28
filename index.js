@@ -1,4 +1,5 @@
 const Items = require('./items');
+const CustomFields = require('./custom-fields');
 
 module.exports = function createClient(opts) {
   const { token, organization } = opts;
@@ -6,6 +7,7 @@ module.exports = function createClient(opts) {
   if (!organization) throw new Error(`Missing 'token' in organization`);
 
   return {
-    items: new Items(opts)
+    items: new Items(opts),
+    customFields: new CustomFields(opts)
   };
 };

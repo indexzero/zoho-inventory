@@ -4,7 +4,10 @@
   "description": "Fetch-based API client for the Zoho Inventory API",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha test/*.test.js"
+    "lint": "populist *.js test/*.js",
+    "pretest": "npm run lint",
+    "test": "nyc --reporter=text --reporter lcov npm run test:mocha",
+    "test:mocha": "mocha test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -27,8 +30,8 @@
   },
   "devDependencies": {
     "assume": "^2.1.0",
+    "eslint-config-populist": "^4.2.0",
     "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "populist": "^0.1.6"
+    "nyc": "^13.1.0"
   }
 }

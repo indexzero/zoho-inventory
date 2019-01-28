@@ -31,12 +31,12 @@ module.exports = class Client {
    * - Default query string parameters
    * - Form encoding any body as a "JSONString" parameter
    *
-   * @param  {[type]} path              HTTP path to request against
-   * @param  {String} options.method    HTTP method
-   * @param  {[type]} [options.query]   URL query string
+   * @param  {string} path              HTTP path to request against
+   * @param  {String} [options.method]  HTTP method
+   * @param  {Object} [options.query]   URL query string
    * @param  {Object} [options.headers] Additional HTTP headers
    * @param  {Object} [body]            HTTP request body; will be form encoded.
-   * @return {Object} HTTP response body.
+   * @returns {Object} HTTP response body.
    */
   async fetch(path, { method = 'GET', query, headers = {}, body } = {}) {
     const qs = new URLSearchParams(Object.assign({}, query, this.query));
@@ -68,7 +68,7 @@ module.exports = class Client {
    * form parameters (such as "image" in /items).
    *
    * @param  {Object} body HTTP request body.
-   * @return {string} Simple `JSONString=` default expected by Zoho.
+   * @returns {string} Simple `JSONString=` default expected by Zoho.
    */
   formEncode(body) {
     const form = new FormData();
@@ -81,7 +81,8 @@ module.exports = class Client {
    *
    * **TODO:** Support pagination
    *
-   * @return {Object} HTTP response body.
+   * @param {Object} [options] Options to handle pagination.
+   * @returns {Object} HTTP response body.
    */
   async list(options = {}) {
     return await this.fetch('', options);
@@ -91,7 +92,7 @@ module.exports = class Client {
    * Creates the resource with the specified using
    * the `body` content provided.
    * @param  {Object} body HTTP request body; will be form encoded.
-   * @return {Object}      HTTP response body.
+   * @returns {Object}      HTTP response body.
    */
   async create(body) {
     return await this.fetch('', {
@@ -103,7 +104,7 @@ module.exports = class Client {
   /**
    * Gets the resource with the specified `id`.
    * @param  {string} id   Resource ID to locate.
-   * @return {Object}      HTTP response body.
+   * @returns {Object}      HTTP response body.
    */
   async get(id) {
     return await this.fetch(`${id}/`);
@@ -114,7 +115,7 @@ module.exports = class Client {
    * the `body` content provided
    * @param  {string} id   Resource ID to update
    * @param  {Object} body HTTP request body; will be form encoded.
-   * @return {Object}      HTTP response body.
+   * @returns {Object}      HTTP response body.
    */
   async update(id, body) {
     return await this.fetch(`${id}/`, {
@@ -126,11 +127,11 @@ module.exports = class Client {
   /**
    * Deletes the resource with the specified `id`.
    * @param  {string} id Resource ID to delete.
-   * @return {Object}    HTTP response body.
+   * @returns {Object}    HTTP response body.
    */
   async delete(id) {
     return await this.fetch(`${id}/`, {
       method: 'DELETE'
     });
   }
-}
+};

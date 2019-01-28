@@ -1,5 +1,3 @@
-const fs = require('fs');
-const FormData = require('form-data');
 const Client = require('./client');
 
 module.exports = class CustomFields extends Client {
@@ -16,7 +14,8 @@ module.exports = class CustomFields extends Client {
    *
    * **TODO:** Support pagination
    *
-   * @return {Object} HTTP response body.
+   * @param {Object} [options] Options to handle pagination.
+   * @returns {Object} HTTP response body.
    */
   async list(options = {}) {
     const json = await this.fetch('items', options);
@@ -33,7 +32,7 @@ module.exports = class CustomFields extends Client {
    * Creates the resource with the specified using
    * the `body` content provided.
    * @param  {Object} body HTTP request body; will be form encoded.
-   * @return {Object}      HTTP response body.
+   * @returns {Object}      HTTP response body.
    */
   async create(body) {
     const json = await this.fetch('customfields', {
@@ -52,7 +51,7 @@ module.exports = class CustomFields extends Client {
   /**
    * Gets the resource with the specified `id`.
    * @param  {string} id   Resource ID to locate.
-   * @return {Object}      HTTP response body.
+   * @returns {Object}      HTTP response body.
    */
   async get(id) {
     return await this.fetch(`customfields/${id}/`);
@@ -63,7 +62,7 @@ module.exports = class CustomFields extends Client {
    * the `body` content provided
    * @param  {string} id   Resource ID to update
    * @param  {Object} body HTTP request body; will be form encoded.
-   * @return {Object}      HTTP response body.
+   * @returns {Object}      HTTP response body.
    */
   async update(id, body) {
     return await this.fetch(`customfields/${id}/`, {
@@ -75,7 +74,7 @@ module.exports = class CustomFields extends Client {
   /**
    * Deletes the resource with the specified `id`.
    * @param  {string} id Resource ID to delete.
-   * @return {Object}    HTTP response body.
+   * @returns {Object}    HTTP response body.
    */
   async delete(id) {
     return await this.fetch(`customfields/${id}/`, {
