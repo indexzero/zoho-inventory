@@ -2,6 +2,7 @@ const crossFetch = require('cross-fetch');
 const diagnostics = require('diagnostics');
 const { URLSearchParams } = require('url');
 const FormData = require('form-data');
+const mapLimit = require('async/mapLimit');
 
 /**
  * Generic fetch-based HTTP client that assumes all of the
@@ -79,8 +80,6 @@ module.exports = class Client {
   /**
    * Lists all of the resource associated with this instance.
    *
-   * **TODO:** Support pagination
-   *
    * @param {Object} [options] Options to handle pagination.
    * @returns {Object} HTTP response body.
    */
@@ -89,10 +88,48 @@ module.exports = class Client {
   }
 
   /**
+   * List all pages of of the resource associated with this instance
+   *
+   * @param {Object} [options] Options to handle pagination.
+   * @returns {Array} List of all resource pages within Zoho Inventory.
+   */
+  async listAll(options = {}) {
+    const meta = await this.fetch('', {
+      query: { response_option: 2 },
+      ...options
+    });
+
+    if (!meta || !meta.page_context || !meta.page_context.total_pages) {
+      throw new Error('Unable to determine item pages.');
+    }
+
+    const length = meta.page_context.total_pages;
+    const pages = Array.from({ length }, (v, k) => k + 1);
+
+    const set = await mapLimit(pages, 3, async (page) => {
+      console.log('Fetch page', page);
+      return await this.list({
+        query: {
+          per_page: 200,
+          page
+        },
+        ...options
+      });
+    });
+
+    //
+    // Remark (indexzero): this is brittle if any page fetch errors.
+    //
+    return set.reduce((acc, res) => {
+      return acc.concat(res.items);
+    }, []);
+  }
+
+  /**
    * Creates the resource with the specified using
    * the `body` content provided.
    * @param  {Object} body HTTP request body; will be form encoded.
-   * @returns {Object}      HTTP response body.
+   * @returns {Object}     HTTP response body.
    */
   async create(body) {
     return await this.fetch('', {
@@ -104,7 +141,7 @@ module.exports = class Client {
   /**
    * Gets the resource with the specified `id`.
    * @param  {string} id   Resource ID to locate.
-   * @returns {Object}      HTTP response body.
+   * @returns {Object}     HTTP response body.
    */
   async get(id) {
     return await this.fetch(`${id}/`);
@@ -115,7 +152,7 @@ module.exports = class Client {
    * the `body` content provided
    * @param  {string} id   Resource ID to update
    * @param  {Object} body HTTP request body; will be form encoded.
-   * @returns {Object}      HTTP response body.
+   * @returns {Object}     HTTP response body.
    */
   async update(id, body) {
     return await this.fetch(`${id}/`, {
@@ -127,7 +164,7 @@ module.exports = class Client {
   /**
    * Deletes the resource with the specified `id`.
    * @param  {string} id Resource ID to delete.
-   * @returns {Object}    HTTP response body.
+   * @returns {Object}   HTTP response body.
    */
   async delete(id) {
     return await this.fetch(`${id}/`, {
