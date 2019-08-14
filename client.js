@@ -107,7 +107,6 @@ module.exports = class Client {
     const pages = Array.from({ length }, (v, k) => k + 1);
 
     const set = await mapLimit(pages, 3, async (page) => {
-      console.log('Fetch page', page);
       return await this.list({
         query: {
           per_page: 200,
